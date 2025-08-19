@@ -1,10 +1,13 @@
+require('dotenv').config();
 const { sequelize } = require('../config/db');
-const { User, Product } = require('../models');
 
 // Script para criar e popular o banco com dados de exemplo
 const setupDatabase = async () => {
   try {
     console.log('🔄 Sincronizando banco de dados...');
+    
+    // Importar modelos após a configuração
+    const { User, Product } = require('../models');
     
     // Força a recriação das tabelas (cuidado em produção!)
     await sequelize.sync({ force: true });

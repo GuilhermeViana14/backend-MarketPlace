@@ -1,13 +1,14 @@
+require('dotenv').config();
 const { Sequelize } = require('sequelize');
 
 // Configuração do Sequelize para PostgreSQL
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
-  process.env.DB_PASSWORD,
+  String(process.env.DB_PASSWORD), // Garantir que seja string
   {
     host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
+    port: parseInt(process.env.DB_PORT) || 5432,
     dialect: 'postgres',
     logging: process.env.NODE_ENV === 'development' ? console.log : false,
     pool: {
